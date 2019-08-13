@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: api-gateway
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 1111
+eureka:
+  client:
+    # 是否注册到eureka（eureka本身是不需要再注册到自己的）
+    register-with-eureka: false
+    # 是否从eureka获取注册信息
+    fetch-registry: true
+  service-url:
+    defaultZone: http://localhost:${server.port}/eureka/
+zuul:
+  ratelimit:
+    enabled: true
+    policies:
+      eureka-client1:
+        limit: 3
+        refresh-interval: 60
+        type: ORIGIN
+        quota: 30
